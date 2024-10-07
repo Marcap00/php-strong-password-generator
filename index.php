@@ -4,6 +4,21 @@ Milestone 1
 // TODO Una nostra funzione utilizzerà questo dato per generare una password casuale (composta da lettere, lettere maiuscole, numeri e simboli) da restituire all’utente.
 // ! Scriviamo tutto (logica e layout) in un unico file index.php 
 -->
+<?php
+
+function generatePassword($length)
+{
+    $characters = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!\"#$%&'()*+,-./:;<=>?@[\]^_`{|}~";
+    $characters_length = strlen($characters);
+    $password = '';
+    for ($i = 0; $i < $length; $i++) {
+        $password .= $characters[random_int(0, $characters_length - 1)];
+        //var_dump("password=======", $password);
+    }
+    return $password;
+}
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -26,10 +41,11 @@ Milestone 1
         </div>
         <div class="border border-secondary-subtle rounded-3 p-4">
             <span>Password Generata:</span>
-            <span class="w-75 p-2 border border-secondary-subtle rounded-3">fejf3jfijjdow</span>
+            <span
+                class="w-75 p-2 border border-secondary-subtle rounded-3"><?= isset($_GET["passwordLength"]) ? generatePassword($_GET["passwordLength"]) : "" ?></span>
         </div>
         <div class="card p-4">
-            <form action="index.php">
+            <form action="index.php" method="GET">
                 <div class="mb-3">
                     <label class="form-label" for="password-length">Inserisci la lunghezza della password:</label>
                     <input class="form-control w-25" type="number" id="password-length" name="passwordLength" min="5"
