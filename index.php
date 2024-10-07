@@ -8,14 +8,16 @@ Milestone 1
 
 function generatePassword($length)
 {
-    $characters = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!\"#$%&'()*+,-./:;<=>?@[\]^_`{|}~";
-    $characters_length = strlen($characters);
-    $password = '';
-    for ($i = 0; $i < $length; $i++) {
-        $password .= $characters[random_int(0, $characters_length - 1)];
-        //var_dump("password=======", $password);
+    if (isset($length) && !empty($length) && $length >= 5 && $length <= 30 && is_numeric($length)) {
+        $characters = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!\"#$%&'()*+,-./:;<=>?@[\]^_`{|}~";
+        $characters_length = strlen($characters);
+        $password = '';
+        for ($i = 0; $i < $length; $i++) {
+            $password .= $characters[random_int(0, $characters_length - 1)];
+            //var_dump("password=======", $password);
+        }
+        return $password;
     }
-    return $password;
 }
 
 ?>
@@ -49,7 +51,7 @@ function generatePassword($length)
                 <div class="mb-3">
                     <label class="form-label" for="password-length">Inserisci la lunghezza della password:</label>
                     <input class="form-control w-25" type="number" id="password-length" name="passwordLength" min="5"
-                        max="30">
+                        max="30" value="<?= isset($_GET["passwordLength"]) ? $_GET["passwordLength"] : '' ?>">
                 </div>
                 <button class="btn btn-primary me-2" type="submit">Genera password</button>
                 <button class="btn btn-secondary" type="reset">Annulla</button>
