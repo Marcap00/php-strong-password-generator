@@ -1,25 +1,5 @@
-<!-- 
-Milestone 1
-// TODO Creare un form che invii in GET la lunghezza della password.
-// TODO Una nostra funzione utilizzerà questo dato per generare una password casuale (composta da lettere, lettere maiuscole, numeri e simboli) da restituire all’utente.
-// ! Scriviamo tutto (logica e layout) in un unico file index.php 
--->
 <?php
-
-function generatePassword($length)
-{
-    if (isset($length) && !empty($length) && $length >= 5 && $length <= 30 && is_numeric($length)) {
-        $characters = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!\"#$%&'()*+,-./:;<=>?@[\]^_`{|}~";
-        $characters_length = strlen($characters);
-        $password = '';
-        for ($i = 0; $i < $length; $i++) {
-            $password .= $characters[random_int(0, $characters_length - 1)];
-            //var_dump("password=======", $password);
-        }
-        return $password;
-    }
-}
-
+require_once __DIR__ . "/functions.php";
 ?>
 
 <!DOCTYPE html>
@@ -41,7 +21,7 @@ function generatePassword($length)
             <h1 class="fw-semibold my-5">Strong Password Generator</h1>
             <p>Inserisci la lunghezza della password e genera una password sicura</p>
         </div>
-        <div class="border border-secondary-subtle rounded-3 p-4">
+        <div class="border border-secondary-subtle rounded-2 p-4 mb-2">
             <span>Password Generata:</span>
             <span
                 class="w-75 p-2 border border-secondary-subtle rounded-3"><?= isset($_GET["passwordLength"]) ? generatePassword($_GET["passwordLength"]) : "" ?></span>
